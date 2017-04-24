@@ -1,0 +1,8 @@
+install: |-
+  java -version
+deploy:
+  script: |
+    date --iso-8601=seconds > rultor.log
+    git add rultor.log
+    git commit -m 'Commit by Rultor'
+    git push --all origin
