@@ -1,8 +1,8 @@
 decrypt:
   id_rsa: "repo/github-deploy.key.asc"
   id_rsa.pub: "repo/github-deploy.key.pub.asc"
-  pubring.gpg: "repo/.rultor/pubring.gpg.asc"
-  secring.gpg: "repo/.rultor/secring.gpg.asc"
+  pubring.gpg: "repo/pubring.gpg.asc"
+  secring.gpg: "repo/secring.gpg.asc"
 install: |-
   java -version
 deploy:
