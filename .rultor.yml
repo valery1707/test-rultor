@@ -18,7 +18,7 @@ deploy:
     git add rultor.log
     git commit -m 'Commit by Rultor'
     gpg --list-keys --quiet
-    cp ../pubring.gpg ../secring.gpg ${HOME}/.gnupg/gpg.conf
+    cp ../pubring.gpg ../secring.gpg ${HOME}/.gnupg
     gpg --list-keys
     echo "no-use-agent" >> ${HOME}/.gnupg/gpg.conf
     echo "batch" >> ${HOME}/.gnupg/gpg.conf
