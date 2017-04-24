@@ -2,7 +2,15 @@ install: |-
   java -version
 deploy:
   script: |
+    echo "GIT remote"
+    git remote -v
+    echo "GIT config"
+    git config --list
+    echo "SSH directory"
+    ls -la ~/.ssh/
+    echo "Actions"
     date --iso-8601=seconds > rultor.log
     git add rultor.log
     git commit -m 'Commit by Rultor'
+    echo "GIT push"
     git push --all origin
