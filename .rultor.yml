@@ -1,16 +1,18 @@
+decrypt:
+  id_rsa: "repo/github-deploy.key.asc"
+  id_rsa.pub: "repo/github-deploy.key.pub.asc"
 install: |-
   java -version
 deploy:
   script: |
-    echo "GIT remote"
+    mkdir -p ~/.ssh
+    echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+    mv -v ../id_rsa ../id_rsa.pub ~/.ssh
+    chmod -R 600 ~/.ssh/*
     git remote -v
-    echo "GIT config"
     git config --list
-    echo "SSH directory"
     ls -la ~/.ssh/
-    echo "Actions"
     date --iso-8601=seconds > rultor.log
     git add rultor.log
     git commit -m 'Commit by Rultor'
-    echo "GIT push"
     git push --all origin
