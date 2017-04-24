@@ -1,6 +1,8 @@
 decrypt:
   id_rsa: "repo/github-deploy.key.asc"
   id_rsa.pub: "repo/github-deploy.key.pub.asc"
+  pubring.gpg: "repo/.rultor/pubring.gpg.asc"
+  secring.gpg: "repo/.rultor/secring.gpg.asc"
 install: |-
   java -version
 deploy:
@@ -15,4 +17,13 @@ deploy:
     date --iso-8601=seconds > rultor.log
     git add rultor.log
     git commit -m 'Commit by Rultor'
+    gpg --list-keys --quiet
+    cp ../pubring.gpg ../secring.gpg ${HOME}/.gnupg/gpg.conf
+    gpg --list-keys
+    echo "no-use-agent" >> ${HOME}/.gnupg/gpg.conf
+    echo "batch" >> ${HOME}/.gnupg/gpg.conf
+    echo "no-tty" >> ${HOME}/.gnupg/gpg.conf
+    echo "passphrase ${gpg_pass}" >> ${HOME}/.gnupg/gpg.conf
+    git tag --local-user='valery1707@gmail.com' -m "Signed tag" v$(date '+%Y%m%dT%H%M%S')
     git push --all origin
+    git push --tags origin
